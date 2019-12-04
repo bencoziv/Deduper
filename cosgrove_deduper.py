@@ -46,7 +46,7 @@ def dcigar(c,p):
     #removes letters and puts each number into a list
     y.pop(-1)
     # removes the empty item
-    if re.findall("^\d*[a-z]",c) != None:
+    if re.findall("^\d*S",c) != None:
         y.pop(0)
     #removes softclipping if the cigar string starts with it
     for item in y:
@@ -88,10 +88,10 @@ def dehead(h,umis):
                 return None, chrom
     else:
         if dflag(flag) is True:
-            pos = dcigar(cig,pos)
+            pos = dcigar(cig, pos)
             flag = "t"
         elif re.search("^\d*S",cig):
-            pos += int(re.split("[A-Z]",cig)[0])
+            pos += int(re.split("[A-Z]", cig)[0])
             flag = "f"
         else:
             pos = pos
@@ -109,8 +109,8 @@ def qual(seq1,seq2):
      q -- quality score cutoff
      seq -- encoded quality score line
      returns value -- true if mean score is greater and false if not"""
-    sum1=0
-    sum2=0
+    sum1 = 0
+    sum2 = 0
     for score in seq1:
         # sums all quality scores
         n = (((ord(score) - 33)))
@@ -146,7 +146,7 @@ def dedupe(f1,umis,k):
                         None
                     else:
                         if k == "q":
-                            if qual(reads[head].split("\t")[10],line.split("\t")[10]) is True:
+                            if qual(reads[head].split("\t")[10], line.split("\t")[10]) is True:
                                 reads[head] = line
                         elif k == "r":
                             if random.random() > .5:
